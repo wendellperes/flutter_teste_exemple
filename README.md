@@ -1,4 +1,4 @@
-## Projeto voltado para demonstrar o uso do Arquitetura MVC com MobX e aula pros menino
+## Projeto voltado para demonstrar o uso do Arquitetura MVC com MobX
 
 ### Features
  -  Uso de MobX
