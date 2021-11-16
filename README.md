@@ -4,7 +4,6 @@
  -  Uso de MobX
  -  Estruturação de pastas
  -  Utilização de Rotas nomeadas
- - asdasdasdas
 
 #### Linkedin: https://www.linkedin.com/in/wendell-peres-da-costa-973076147/
 #### Em caso de Erros com Mobx ou Conflitos utilize os seguintes comando em ordem
