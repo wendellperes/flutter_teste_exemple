@@ -20,8 +20,8 @@ class _CreateProductState extends State<CreateProduct> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey                          = GlobalKey<ScaffoldState>();
   final TextEditingController _nome = TextEditingController();
-  final TextEditingController _emailControle = TextEditingController();
-  final TextEditingController _dataNascimento = TextEditingController();
+  final TextEditingController _descricao = TextEditingController();
+  final TextEditingController _preco = TextEditingController();
   final String _dataControler                    = DateTime.now().toString();
   bool isSalvando = false;
   String sexo = 'Masculino';
@@ -122,7 +122,7 @@ class _CreateProductState extends State<CreateProduct> {
                             height: 15,
                           ),
                           TextFormField(
-                            controller: _emailControle,
+                            controller: _descricao,
                             keyboardType: TextInputType.text,
 
                             decoration: InputDecoration(
@@ -150,7 +150,7 @@ class _CreateProductState extends State<CreateProduct> {
                             height: 15,
                           ),
                           TextFormField(
-                            controller: _emailControle,
+                            controller: _preco,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: 'Preço*',
@@ -217,15 +217,21 @@ class _CreateProductState extends State<CreateProduct> {
                               setState(() {
                                 isSalvando = true;
                               });
-                              //
                               await controllerInserir.Cadastrar(
                                 nome: _nome.text,
-                                email: _emailControle.text,
-                                data_nascimento: _dataNascimento.text,
-                                sexo: sexo,
-                                data: _dataControler,
+                                descricao: _descricao.text,
+                                preco: _preco.text,
                                 onsuccess: _onsuccess
                               );
+                              //
+                              //await controllerInserir.Cadastrar(
+                              //  nome: _nome.text,
+                              //  email: _emailControle.text,
+                              //  data_nascimento: _dataNascimento.text,
+                              //  sexo: sexo,
+                              //  data: _dataControler,
+                              //  onsuccess: _onsuccess
+                              //);
 
                             }
                           },

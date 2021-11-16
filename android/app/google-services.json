@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "961586306980",
+    "firebase_url": "https://cacoteste-50a50.firebaseio.com",
+    "project_id": "cacoteste-50a50",
+    "storage_bucket": "cacoteste-50a50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961586306980:android:fee06e5983224261fe2b31",
+        "android_client_info": {
+          "package_name": "com.ps.avaliacao_empresa_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961586306980-evf7sgjavpq1a9vq0impeqf279n0i8vn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANDByalLTAThcs7amcsRsJF-GI9c6sjmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961586306980-evf7sgjavpq1a9vq0impeqf279n0i8vn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

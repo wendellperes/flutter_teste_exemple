@@ -1,11 +1,8 @@
 
 import 'package:avaliacao_empresa_flutter/componentes/drawer/drawer_icon.dart';
 import 'package:avaliacao_empresa_flutter/componentes/listView_horizontal/listView_hotizontal.dart';
-import 'package:avaliacao_empresa_flutter/componentes/loading/loading.dart';
-import 'package:avaliacao_empresa_flutter/componentes/popup/popup.dart';
 import 'package:avaliacao_empresa_flutter/componentes/utils_styles/app_border_styles.dart';
 import 'package:avaliacao_empresa_flutter/controllers/controller_busca/controller_busca.dart';
-import 'package:avaliacao_empresa_flutter/views/Cards/cards_home.dart';
 import 'package:avaliacao_empresa_flutter/views/createRegistration_view/createProduct.dart';
 import 'package:avaliacao_empresa_flutter/views/details/details.dart';
 import 'package:flutter/cupertino.dart';

@@ -3,6 +3,7 @@ import 'package:avaliacao_empresa_flutter/views/details/details.dart';
 import 'package:avaliacao_empresa_flutter/views/home_view/home_tab_views.dart';
 import 'package:avaliacao_empresa_flutter/views/presentation/presentation.dart';
 import 'package:avaliacao_empresa_flutter/views/updateRegistration_view/atualizar_cadastro_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:avaliacao_empresa_flutter/controllers/controller_busca/controller_busca.dart';
 import 'package:avaliacao_empresa_flutter/controllers/controller_delete/controller_delete.dart';
@@ -15,6 +16,9 @@ import 'views/home_view/home.dart';
 import 'views/splashscreen_view/splashscreen_page.dart';
 
 void main() async {
+  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  
   runApp(
     MultiProvider(
         providers: [
