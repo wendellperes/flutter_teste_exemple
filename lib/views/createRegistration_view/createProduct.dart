@@ -27,6 +27,7 @@ class _CreateProductState extends State<CreateProduct> {
   final TextEditingController _preco = TextEditingController();
   String img = '';
   bool isSalvando = false;
+  bool isLoadImg = false;
   ControllerInserir controllerInserir;
   final FirebaseStorage storage =FirebaseStorage.instance;
 
@@ -68,7 +69,12 @@ class _CreateProductState extends State<CreateProduct> {
       String ref = 'images/img-${DateTime.now().toString()}.jpg';
      var data = await storage.ref(ref).putFile(file);
      String url = await data.ref.getDownloadURL();
-     img = url;
+     setState(() {
+       img = url;
+       isLoadImg = false;
+     });
+     print(img);
+
 
     } on FirebaseException catch (e){
       throw Exception('Error no upload: ${e.code}');
@@ -76,6 +82,9 @@ class _CreateProductState extends State<CreateProduct> {
   }
   pickUploadImage() async {
     XFile file = await getImage();
+    setState(() {
+      isLoadImg = true;
+    });
     if (file != null){
       await upload(file.path);
     }
@@ -195,12 +204,36 @@ class _CreateProductState extends State<CreateProduct> {
                           SizedBox(
                             height: 15,
                           ),
-                          ElevatedButton(
-                              onPressed: pickUploadImage,
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white
-                              ),
-                              child: Icon(Icons.add_a_photo_rounded, color: Colors.pink[300],)
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: pickUploadImage,
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.white
+                                    ),
+                                    child: Icon(Icons.add_a_photo_rounded, color: Colors.pink[300],)
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Visibility(
+                                  visible: isLoadImg,
+                                    child: Text('Carregando...')
+                                ),
+                                img != ""? Icon(Icons.assignment_turned_in_rounded, color: Colors.green,): Container()
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Visibility(
+                            visible: img == '' ? true : false,
+                            child: Container(
+                              child: Text('Obs: Insira uma Imagem para Continuar', style: TextStyle(color: Colors.red),),
+                            ),
                           )
 
                         ],
@@ -246,10 +279,14 @@ class _CreateProductState extends State<CreateProduct> {
                               setState(() {
                                 isSalvando = true;
                               });
+                              if (img == ''){
+                                return false;
+                              }
                               await controllerInserir.Cadastrar(
                                 nome: _nome.text,
                                 descricao: _descricao.text,
                                 preco: _preco.text,
+                                img: img,
                                 onsuccess: _onsuccess
                               );
                               //

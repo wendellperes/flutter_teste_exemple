@@ -2,7 +2,7 @@ import 'package:avaliacao_empresa_flutter/componentes/utils_styles/app_colors.da
 import 'package:flutter/material.dart';
 
 class DetailsProduct extends StatefulWidget {
-  final List arguments;
+  final Map<String, dynamic> arguments;
   const DetailsProduct({ Key key, this.arguments }) : super(key: key);
 
   @override
@@ -12,11 +12,15 @@ class DetailsProduct extends StatefulWidget {
 class _DetailsProductState extends State<DetailsProduct> {
 
   int qdt = 1;
+  int preco = 0;
+  int total = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('${widget.arguments}');
+    preco = int.parse(widget.arguments['preco']);
+    total = int.parse(widget.arguments['preco']);
+    print('${widget.arguments['nome']}');
   }
   @override
   Widget build(BuildContext context) {
@@ -58,13 +62,13 @@ class _DetailsProductState extends State<DetailsProduct> {
             Container(
               height: 300,
               width: 250,
-              child: Image.asset('images/img_products/jaqueta1.jpg',),
+              child: Image.network('${widget.arguments['img']}',),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12),
               alignment: Alignment.centerLeft,
               child: Text(
-                'Jaquetas Roxa Camuça', 
+                '${widget.arguments['nome']}',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: AppColors.black,
@@ -80,7 +84,7 @@ class _DetailsProductState extends State<DetailsProduct> {
               padding: EdgeInsets.symmetric(horizontal: 12),
               alignment: Alignment.centerLeft,
               child: Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 
+                '${widget.arguments['descricao']}',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: AppColors.border,
@@ -231,6 +235,7 @@ class _DetailsProductState extends State<DetailsProduct> {
                             setState(() {
                               if(qdt >= 2){
                                 qdt--;
+                                total = total - preco;
                               }
                               
                             });
@@ -242,6 +247,8 @@ class _DetailsProductState extends State<DetailsProduct> {
                           onPressed: (){
                             setState(() {
                               qdt++;
+                               total = preco * qdt;
+                               print(total);
                             });
                           }, 
                           icon: Icon(Icons.add)
@@ -251,7 +258,7 @@ class _DetailsProductState extends State<DetailsProduct> {
                     ),
                   ),
                   Container(
-                    child: Text('R\$ 42,00'),
+                    child: Text('R\$ $total,00'),
                   ),
                 ],
               ),

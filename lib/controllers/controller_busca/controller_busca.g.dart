@@ -24,6 +24,21 @@ mixin _$ControllerBusca on _ControllerBuscaBase, Store {
     });
   }
 
+  final _$dataProdutosAtom = Atom(name: '_ControllerBuscaBase.dataProdutos');
+
+  @override
+  List<Map<String, dynamic>> get dataProdutos {
+    _$dataProdutosAtom.reportRead();
+    return super.dataProdutos;
+  }
+
+  @override
+  set dataProdutos(List<Map<String, dynamic>> value) {
+    _$dataProdutosAtom.reportWrite(value, super.dataProdutos, () {
+      super.dataProdutos = value;
+    });
+  }
+
   final _$buscarDadosGeraisAsyncAction =
       AsyncAction('_ControllerBuscaBase.buscarDadosGerais');
 
@@ -35,7 +50,8 @@ mixin _$ControllerBusca on _ControllerBuscaBase, Store {
   @override
   String toString() {
     return '''
-lista_pessoas: ${lista_pessoas}
+lista_pessoas: ${lista_pessoas},
+dataProdutos: ${dataProdutos}
     ''';
   }
 }
