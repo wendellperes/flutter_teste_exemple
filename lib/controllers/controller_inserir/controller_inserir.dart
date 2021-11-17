@@ -22,13 +22,15 @@ abstract class _ControllerInserirBase with Store {
   @required String nome,
   @required String descricao,
   @required String preco,
+  @required String img,
   @required Function onsuccess,
   }) async {
    try {
      final data = Produto (
         name: nome,
         descricao: descricao,
-        preco: preco
+        preco: preco,
+        img: img
     );
     await instance.collection('anuncios').doc().set(data.toMap()).then((value){
       return onsuccess(true);
