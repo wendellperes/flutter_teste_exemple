@@ -23,6 +23,7 @@ class _HomeViewState extends State<Home> {
   ControllerBusca controllerBusca = ControllerBusca();
   
   final TextEditingController _pesquisa = TextEditingController();
+  List <Map<String, dynamic>> data = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -34,7 +35,11 @@ class _HomeViewState extends State<Home> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
      controllerBusca = Provider.of<ControllerBusca>(context, listen: false);
-     controllerBusca.buscarDadosGerais();
+     await controllerBusca.buscarDadosGerais();
+     setState(() {
+       data = controllerBusca.dataProdutos;
+     });
+     print('dados na home: ${controllerBusca.dataProdutos[0]['img']}');
 
   }
   @override
@@ -129,29 +134,31 @@ class _HomeViewState extends State<Home> {
               SizedBox(
                 height: 15,
               ),
+
               Expanded(
-                child: GridView.count(
+                child: data != [] ? GridView.count(
                     crossAxisCount: 2 ,
-                    children: List.generate(50,(index){
+                    children: List.generate(controllerBusca.dataProdutos.length,(index){
                       return GestureDetector(
                         onTap: (){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => DetailsProduct()),
+                            MaterialPageRoute(builder: (context) => DetailsProduct(
+                              arguments: controllerBusca.dataProdutos[index],
+
+                            )),
                           );
                         },
                         child: Container(
-                          width: 120,
-                          height: 180,
                           margin: EdgeInsets.only(right: 10, bottom: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.white,
                             image: DecorationImage(
-                              image: AssetImage(
-                                'images/img_products/jaqueta1.jpg',
+                              image: NetworkImage(
+                                "${controllerBusca.dataProdutos[index]['img']}",
                               ),
-                              scale: 8.0
+                              scale: 9.0
                             ),
                           ),
                           padding: EdgeInsets.all(8),
@@ -170,7 +177,7 @@ class _HomeViewState extends State<Home> {
                                         borderRadius: BorderRadius.circular(25)
                                       )
                                     ),
-                                    onPressed: (){}, 
+                                    onPressed: (){},
                                     child: Icon(Icons.favorite_border_outlined, color: AppColors.pinkIcon,)
                                   ),
                                 ),
@@ -179,7 +186,7 @@ class _HomeViewState extends State<Home> {
                                 ),
                                 Container(
                                   child: Text(
-                                    'Jaqueta', 
+                                    "${controllerBusca.dataProdutos[index]['nome']}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 17
@@ -192,18 +199,19 @@ class _HomeViewState extends State<Home> {
                                     children: [
                                       Text('R\$ 67,00', style: AppTextStyles.precoDesconto
                                       ),
-                                      Text('R\$ 42,00', style: AppTextStyles.precoPrincipal
+                                      Text('R\$ ${controllerBusca.dataProdutos[index]['preco']},00', style: AppTextStyles.precoPrincipal
                                       ),
                                     ],
                                   ),
                                 )
-                                
+
                               ],
                             )
                         ),
                       );
                     }),
-                  ),
+                  )
+                    : Center(child: CircularProgressIndicator(),),
               ),
             
             ],

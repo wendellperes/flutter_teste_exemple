@@ -29,9 +29,17 @@ mixin _$ControllerInserir on _ControllerInserirBase, Store {
 
   @override
   Future<void> Cadastrar(
-      {String nome, String descricao, String preco, Function onsuccess}) {
+      {String nome,
+      String descricao,
+      String preco,
+      String img,
+      Function onsuccess}) {
     return _$CadastrarAsyncAction.run(() => super.Cadastrar(
-        nome: nome, descricao: descricao, preco: preco, onsuccess: onsuccess));
+        nome: nome,
+        descricao: descricao,
+        preco: preco,
+        img: img,
+        onsuccess: onsuccess));
   }
 
   @override

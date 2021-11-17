@@ -16,8 +16,9 @@ import 'views/home_view/home.dart';
 import 'views/splashscreen_view/splashscreen_page.dart';
 
 void main() async {
-  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   
   runApp(
     MultiProvider(

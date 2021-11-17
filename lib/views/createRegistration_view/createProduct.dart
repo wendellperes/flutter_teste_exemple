@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:avaliacao_empresa_flutter/componentes/utils_styles/app_border_styles.dart';
 import 'package:avaliacao_empresa_flutter/componentes/utils_styles/app_colors.dart';
@@ -8,7 +9,9 @@ import 'package:avaliacao_empresa_flutter/componentes/loading/loading.dart';
 import 'package:avaliacao_empresa_flutter/componentes/popup/popup.dart';
 import 'package:avaliacao_empresa_flutter/controllers/controller_inserir/controller_inserir.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class CreateProduct extends StatefulWidget {
@@ -22,16 +25,16 @@ class _CreateProductState extends State<CreateProduct> {
   final TextEditingController _nome = TextEditingController();
   final TextEditingController _descricao = TextEditingController();
   final TextEditingController _preco = TextEditingController();
-  final String _dataControler                    = DateTime.now().toString();
+  String img = '';
   bool isSalvando = false;
-  String sexo = 'Masculino';
+  bool isLoadImg = false;
   ControllerInserir controllerInserir;
+  final FirebaseStorage storage =FirebaseStorage.instance;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    NativeApi.initializeApiDLData.address.toString();
   }
   @override
   void didChangeDependencies() {
@@ -54,9 +57,39 @@ class _CreateProductState extends State<CreateProduct> {
       ));
     }
   }
-  void dropChange(String val){
-    sexo = val;
+
+  Future<XFile>getImage() async {
+    final ImagePicker _pick = ImagePicker();
+    XFile image = await _pick.pickImage(source: ImageSource.gallery);
+    return image;
   }
+  Future<void> upload(String path) async{
+    File file = File(path);
+    try{
+      String ref = 'images/img-${DateTime.now().toString()}.jpg';
+     var data = await storage.ref(ref).putFile(file);
+     String url = await data.ref.getDownloadURL();
+     setState(() {
+       img = url;
+       isLoadImg = false;
+     });
+     print(img);
+
+
+    } on FirebaseException catch (e){
+      throw Exception('Error no upload: ${e.code}');
+    }
+  }
+  pickUploadImage() async {
+    XFile file = await getImage();
+    setState(() {
+      isLoadImg = true;
+    });
+    if (file != null){
+      await upload(file.path);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +131,6 @@ class _CreateProductState extends State<CreateProduct> {
                           TextFormField(
                             controller: _nome,
                             keyboardType: TextInputType.text,
-                            maxLength: 70,
                             decoration: InputDecoration(
                               labelText: 'Nome do Produto*',
                               labelStyle: TextStyle(
@@ -140,8 +172,6 @@ class _CreateProductState extends State<CreateProduct> {
                             validator: (value){
                               if ( value.isEmpty){
                                 return 'Campo nao pode ser vazio';
-                              } else if(!value.contains('@')){
-                                return 'e-mail Inválido!';
                               }
                               return null;
                             },
@@ -167,12 +197,44 @@ class _CreateProductState extends State<CreateProduct> {
                             validator: (value){
                               if ( value.isEmpty){
                                 return 'Campo nao pode ser vazio';
-                              } else if(!value.contains('@')){
-                                return 'e-mail Inválido!';
                               }
                               return null;
                             },
                           ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: pickUploadImage,
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.white
+                                    ),
+                                    child: Icon(Icons.add_a_photo_rounded, color: Colors.pink[300],)
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Visibility(
+                                  visible: isLoadImg,
+                                    child: Text('Carregando...')
+                                ),
+                                img != ""? Icon(Icons.assignment_turned_in_rounded, color: Colors.green,): Container()
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Visibility(
+                            visible: img == '' ? true : false,
+                            child: Container(
+                              child: Text('Obs: Insira uma Imagem para Continuar', style: TextStyle(color: Colors.red),),
+                            ),
+                          )
 
                         ],
                       ),
@@ -217,10 +279,14 @@ class _CreateProductState extends State<CreateProduct> {
                               setState(() {
                                 isSalvando = true;
                               });
+                              if (img == ''){
+                                return false;
+                              }
                               await controllerInserir.Cadastrar(
                                 nome: _nome.text,
                                 descricao: _descricao.text,
                                 preco: _preco.text,
+                                img: img,
                                 onsuccess: _onsuccess
                               );
                               //
