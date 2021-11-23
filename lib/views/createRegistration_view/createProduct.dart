@@ -102,13 +102,6 @@ class _CreateProductState extends State<CreateProduct> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    child: Image.asset(
-                      'images/logo.png',
-                      width: 200,
-                      height: 200,
-                    ),
-                  ),
                   SizedBox(
                     height: 15,
                   ),

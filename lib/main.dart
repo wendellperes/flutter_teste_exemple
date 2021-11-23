@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'controllers/controller_inserir/controller_inserir.dart';
 import 'controllers/controller_update/controller_update.dart';
 import 'views/home_view/home.dart';
-import 'views/splashscreen_view/splashscreen_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         //uso Rotas Nomeadas
-        '/': (context) => Splashscreen(),
+        '/': (context) => PresentationView(),
         '/home': (context) => HomeTabView(),
         '/update': (context) => UpdateUser(),
         '/presentation': (context) => PresentationView(),
