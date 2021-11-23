@@ -1,4 +1,5 @@
-## Projeto voltado para demonstrar o uso do Arquitetura MVC com MobX
+## Projeto voltado para demonstrar o uso do Arquitetura MVC com MobX 
+## Integração com Firebase
 
 ### Features
  -  Uso de MobX
