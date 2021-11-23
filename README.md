@@ -6,6 +6,20 @@
  -  Estruturação de pastas
  -  Utilização de Rotas nomeadas
 
+
+
+## Screenshots
+
+| [Sliding Login & Register](https://github.com/pedromassango/my_flutter_challenges/blob/master/lib/sliding_login.dart) | [Bottom Navy Bar](https://github.com/pedromassango/bottom_navy_bar) | [Custom Drawer](https://github.com/pedromassango/flutter_delivery) |
+| ------------- | ------------- | ------------- |
+| <img src="/screenshots/slidl.gif" width="270" height="480"> | <img src="/screenshots/navy2.gif" width="270" height="480"> | <img src="/screenshots/delivery.gif" width="270" height="480"> |
+
+
+
+| [Titled Bottom Navigation Bar](https://github.com/pedromassango/titled_navigation_bar) | [Mobile Dashboard](https://github.com/pedromassango/my_flutter_challenges/blob/master/lib/mobile_dashboard.dart) | [Foldable Options Menu](https://github.com/pedromassango/my_flutter_challenges/blob/master/lib/foldable_options_menu.dart) |
+| ------------- | ------------- | ------------- |
+| <img src="/screenshots/titled_bottom_bar.gif" width="270" height="480"> | <img src="/screenshots/dashboard.png" width="270" height="480"> | <img src="/screenshots/options_menu.gif" width="270" height="480"> |
+
 #### Linkedin: https://www.linkedin.com/in/wendell-peres-da-costa-973076147/
 #### Em caso de Erros com Mobx ou Conflitos utilize os seguintes comando em ordem
   -   flutter clean
